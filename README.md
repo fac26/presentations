@@ -14,7 +14,7 @@ If there is no folder for your current week, you are have honour of making it! :
 
    ![create file button](https://github.com/fac-15/Research/blob/master/CreateNewFile_button.png)
 
-2. Include the week number in the filepath on top of the new file (make sure to type `week#/[your research topic].md`)
+2. Include the week number in the filepath on top of the new file (make sure to type `week#/[team#].md`)
 
    ![filepath](https://github.com/fac-15/Research/blob/master/Screen%20Shot%202018-10-30%20at%2019.43.53.png)
 
