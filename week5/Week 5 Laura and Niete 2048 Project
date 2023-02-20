@@ -1,0 +1,127 @@
+# Week 5 Client Side App 
+
+## Laura & Niete 
+<style>
+.reveal {
+    font-size: 24px;
+}
+</style>
+
+---
+
+## What did we make? (Laura)
+
+We made a game called 2048, that works a little something like this...
+
+![2048](https://thumbs.gfycat.com/ElegantSaneKingbird-size_restricted.gif)
+
+---
+
+# How did we make it? (Niete)
+
+Like previous projects we started with the concept that we wanted to create. However, after further research we realised that the scope of the project was too great and beyond our skill level. In the end, we decided to follow along with a YouTube tutorial and understand the logic behind how the game works using that.
+
+You can watch and follow along with the tutorial here:
+
+https://www.youtube.com/watch?v=ca0BEH2bBLs&t=3460s
+
+---
+
+## Acceptance Criteria (Niete)
+
+- [X] Accept at least 2 kinds of user input
+- [X] Have some form of persistent state and interactivity, e.g.
+- [X] Score tracker
+
+## Stretch criteria (Niete)
+
+- [ ] Save your state to localstorage so you can leave the page and come back later.
+-- However, Ivan did give us the advice that we could create a custom hook for this called useLocalStorage
+- [X] Make it look great
+
+---
+
+## KSBs (Niete)
+
+- K7: Software design approaches and patterns, to identify reusable solutions to commonly occurring problems
+- S2: Develop effective user interfaces
+- B2: Applies logical thinking. For example, uses clear and valid reasoning when making decisions related to undertaking work instructions
+
+
+---
+
+## KSBs (Laura)
+
+- K7: Software design approaches and patterns, to identify reusable solutions to commonly occurring problems
+- S1: Create logical and maintainable code
+- B1: Works independently and takes responsibility. For example, has a disciplined and responsible approach to risk and stays motivated and committed when facing challenges
+
+
+---
+
+
+## How the board/tiles are created (Niete)
+
+```jsx
+const cells = board.cells.map((row, rowIndex) => {
+    return (
+      <div key={rowIndex}>
+        {row.map((col, colIndex) => {
+          return <Cell key={rowIndex * board.size + colIndex} />;
+        })}
+      </div>
+    );
+  });
+
+const tiles = board.tiles
+    .filter((tile) => tile.value !== 0)
+    .map((tile, index) => {
+      return <Tile tile={tile} key={index} />;
+    });
+```
+
+---
+
+## GameOver, GameOverlay (Laura)
+
+```jsx
+const BoardView = () => {
+// ... 
+return (
+    <div className="game-container">
+      <div className="details-box">
+        <div className="newgameButton" onClick={resetGame}>
+          new game
+        </div>
+        <div className="score-box">
+          <div className="score-header">SCORE</div>
+          <div>{board.score}</div>
+        </div>
+      </div>
+      <div className="board">
+        {cells}
+        {tiles}
+        {board.hasWon() || board.hasLost() ? (
+    <GameOverlay onRestart={resetGame} board={board} />
+  ) : null}
+      </div>
+    </div>
+  );
+};
+```
+
+---
+
+## Project Board (Laura)
+
+https://github.com/orgs/fac26/projects/20
+
+---
+
+## The Game
+
+Play [here](https://week5-niete-laura.netlify.app)!
+
+---
+
+## Questions?
