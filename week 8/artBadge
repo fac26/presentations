@@ -1,0 +1,251 @@
+# Art Badge
+
+---
+
+## Design Week & Sprint Week 1 Presentation 
+
+---
+
+## :pencil2: Design Week :pencil2: 
+
+---
+
+## User Research
+
+User research gives us an opportunity to validate whether we’re on the right track, or if we’re designing something that wouldn’t address user needs.
+
+---
+
+### Initial Figma design based on user research
+
+
+<img src="https://i.imgur.com/MqkYpVt.png" width="500">
+
+
+---
+
+## Usability Testing
+
+Usability testing is a process for getting feedback from real people in order to inform the decisions we make on designing and building a digital product.
+
+---
+
+### Revised clickable Figma prototype
+
+<img src="https://i.imgur.com/lbbzRs1.png" width="200">
+
+[Click me!](https://www.figma.com/proto/wVdBFVqoaLtPQPA0bq4ZY3/Untitled?node-id=51-448&scaling=scale-down&page-id=0%3A1&starting-point-node-id=51%3A448)
+
+---
+
+### Sprint Planning 
+
+![](https://i.imgur.com/Ospx6dQ.png)
+
+
+---
+
+## The Problem with Supabase and Environment Variables
+
+- We were having issues with SEEDING DATA into SUPABASE because of ENV VARIABLES not being RECOGNISED.#
+
+---
+
+
+## What exactly was the issue?
+
+![](https://media.discordapp.net/attachments/817070834836307978/1083152965734502410/image.png)
+
+---
+
+## Attempt #1
+
+![](https://media.discordapp.net/attachments/817070834836307978/1083152966065864794/image2.png)
+
+---
+
+## Attempt #2
+
+![](https://media.discordapp.net/attachments/817070834836307978/1083152966686609438/image4.png)
+
+---
+
+## Attempt #3
+
+Sit and cry :cry: 
+
+---
+
+## How did we fix it?
+
+---
+
+1. We copied the following code from config/supabaseClient.js into an api.js file in the root folder. 
+
+```javascript
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+export default supabase;
+
+```
+
+---
+
+2. We installed the dotenv package using the command 
+
+```
+npm install dotenv 
+```
+
+---
+
+3. We then added the following two lines to the api.js file:
+
+```javascript
+import * as dotenv from 'dotenv';
+dotenv.config();
+```
+
+---
+
+## But...
+
+4. The code from step 3 only works if your environment variable file is called .env...beacause ours is called .env.local we have to explicitly define the path like so:
+
+```javascript
+import * as dotenv from 'dotenv';
+dotenv.config({ path: './.env.local' });
+```
+
+---
+
+5. We then called the the exported supabase object from step 1 into our artData.js file, like so: 
+
+```javascript
+import supabase from '../../api.js';
+
+const { data, error } = await supabase.from('artData').insert([
+  {
+    id: 1,
+    title: 'Starry Night',
+    artistName: 'Vincent Van Gogh',
+    rating: 4,
+    location: 'MOMA, New York',...
+```
+
+---
+
+6. We then deleted the data in Supabase and ran the command 
+
+```
+node src/data/artData.js
+```
+
+---
+
+---
+
+## QA: Cypress Testing
+
+Dominic and Niete managed to get Cypress Testing up and running after some difficulty, due to troubleshooting problems involving complicated compatibility issues between ES6 and CommonJS modules. 
+
+---
+
+A very basic test can be viewed here:
+
+![](https://i.imgur.com/nFZ5BkB.png)
+
+---
+
+His first test for our project is designed to check if Cypress recognises the existence of the NavBar component in the DOM, which will be replicated on every page of the app:
+
+![](https://i.imgur.com/oVF1hFk.png)
+
+---
+
+The NavBar component is made up of icons. Trying to target them in Cypress Testing wouldn’t work. After perusing the Cypress Testing documentation, the solution was to add data-cy props to each item in the original NavBar component, like so with the Home icon as an example:
+
+```jsx
+<li>
+    <Link href="/">
+        <Icon
+            className={style.vector}
+            icon="material-symbols:home"
+            data-cy="home"
+        />
+    </Link>
+</li>
+```
+
+---
+
+This can then be targeted in the Cypress Documentation, like so, and passes.
+
+```testing
+context('Navigation', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000');
+  });
+
+  it('Passes', () => {
+    cy.get('[data-cy="home"]').should('exist');
+    cy.get('[data-cy="help"]').should('exist');
+    cy.get('[data-cy="add"]').should('exist');
+    cy.get('[data-cy="ranking-star"]').should('exist');
+    cy.get('[data-cy="book-contacts"]').should('exist');
+  });
+});
+```
+
+---
+
+In addition, using Cypress Testing brought up a number of other issues. When you run `npm run dev` in Node when using Cypress Testing, the command line won’t appear again. This means that a separate Terminal has to be loaded to bring up the Cypress Testing app, which can be summoned using `npx cypress open`. These were all issues that Dominic had to get used to.
+
+---
+
+## DevOps: Env variables on deployed app
+
+- Adding environment variables to vercel allowed our deployed app to fetch and post to our supabase app
+
+![](https://i.imgur.com/flLALzt.png)
+
+![](https://i.imgur.com/Qt7DdlV.png)
+
+---
+
+## KSBs
+
+---
+
+Dominic: 
+<span style="color:#8A2BE2">S13: </span>Follow testing frameworks and methdologies.
+<span style="color:#7FFF00">B4: </span>Works collaboratively with a wide range of people in different roles, internally and externally, with a positive attitude to inclusion & diversity
+
+---
+
+Gal:
+
+- B4: Works collaboratively with a wide range of people in different roles, internally and externally, with a positive attitude to inclusion & diversity
+
+---
+
+Laura:
+
+
+- S14: Follow company, team or client approaches to continuous integration, version and source control
+             
+---
+
+Niete:
+
+- K10: Principles and uses of relational and non-relational databases
+
+
+
+
+---
