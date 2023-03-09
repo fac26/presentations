@@ -1,0 +1,101 @@
+#### [Development] 
+# GOTH KK(ch)ING
+
+## :calendar: 
+:::success
+Date : 09-03-2023
+:::
+
+<style>
+    .reveal { 
+        font-size: 24px;
+    }
+</style>
+
+---
+
+## :pencil2: What is GOTH (kking)?
+:::success
+We are building a web app that lets members of a household or communal space receive automated fair rotations for tasks they want to share between them, mark them as completed and compete for the first position on a leaderboard based on points assigned from the tasks.
+:::
+
+---
+
+## The mockup
+![](https://i.imgur.com/yN9nRAm.png)
+
+---
+
+![](https://i.imgur.com/QuSzhAg.png)
+
+---
+
+![](https://i.imgur.com/J3OYNXO.png)
+
+---
+
+![](https://i.imgur.com/072orro.png)
+
+---
+
+### :new: Functions
+:::warning
+List the new function and exhibit.
+:::
+
+| **Fuction** 	| **Feature** 	| **Example** 	| **Note** 	|
+|-------------	|-------------	|-------------	|--------------	|
+|add_space_member()|will add new member into space|add_space_member('test@gmail.com', 126, 'Mr Smith', false);| in progress     	|
+|get_spaces(email text)|returns all spaces user is part of|get_all_spaces('test@gmail.com');|done|          	|
+
+```js
+const currentUserMemberOfList = await supabase.rpc('get_all_spaces', {
+	email: user.email
+})     	
+```
+
+---
+
+### :hammer: In Progress
+
+| **Bug Item** 	| **Result** 	| **Completed** 	| **Note** 	|
+|:------------:	|:----------:	|:-----------------:	|:--------:	|
+|create dynamic paths|user-profile id should be a dynamic path|x|   | 
+|create dynamic paths for each space|redirects user to the chosen space which shows all the data about the space| x|how to do?|
+|handle requests|these requests should be handled in getServerSidePorps|x| ?  | 
+
+---
+
+### :question: Question 
+
+page/user-page
+```javascript
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+
+function UserPage() {
+	const session = useSession()
+	const supabase = useSupabaseClient()
+	const user = useUser()
+        ...
+        async function getSpaceList() {
+           const currentUserMemberOfList = await supabase.rpc('get_all_spaces', {
+                    email: user.email
+                })
+...
+```
+```javascript
+export async function getServerSideProps() {
+  const spacesList = await supabase... 
+```
+
+---
+
+
+
+---
+
+## Website Demo
+
+---
+
+## Questions?
